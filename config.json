@@ -1,0 +1,78 @@
+{
+    "table": "book",
+    "symbols": [
+        "BTC-USDT",
+        "ETH-USDT",
+        "SOL-USDT",
+        "DOGE-USDT",
+        "ACM-USDT"
+    ],
+    "exchanges": [
+        "BINANCE"
+    ],
+    "start_date": "2023-09-01",
+    "end_date": "2024-12-15",
+    "min_rows": 5000,
+    "path_sqlite": "C:\\Ordinateur precedent\\Documents\\Projects\\Financial_Data\\Crypto",
+    "path_save_dataset": "data_preprocessed/",
+    "path_save_results":"data_preprocessed/compressed_backtest_results/",
+    "path_save_plots":"plots/",
+    "train_ratio": 0.6,
+    "val_ratio": 0.5,
+    "normalization_window": 20000,
+    "bucket_size": 1000,
+    "n_bins": 1000,
+    "Ts": [
+        20,
+        50,
+        100
+    ],
+    "pred_horizons": [
+        5,
+        10,
+        50
+    ],
+    "tick_size": {
+        "SOL-USDT": 0.01,
+        "BTC-USDT": 0.01,
+        "ETH-USDT": 0.01,
+        "DOGE-USDT": 1e-05,
+        "ACM-USDT": 0.001
+    },
+    "type_mean": "simple",
+    "type_target": "Smooth",
+    "rearrange_date_needed": false,
+    "val_date_st": "2024-09-01",
+    "test_date_st": "2024-10-01",
+    "models": ["deeplob","transformer","binbtabl","binctabl"],
+    "batch_size": 128,
+    "learning_rate": 0.0002,
+    "num_epochs": 1,
+    "subset_ratio": 0.2,
+    "step_size": 3,
+    "gamma": 0.8,
+    "device": "cpu",
+    "seed": 42,
+    "type_library":"pt",
+    "probability_thresholds": [0.3, 0.4, 0.5 ,0.6 ,0.7 ,0.8 ,0.9],
+    "trader_types": {
+        "market_taker":1, 
+        "market_maker":-1, 
+        "mixed_25T_75M":-0.5,
+        "mixed_50T_50M":0,
+        "mixed_75T_25M":0.5
+    },
+    "metrics": ["mccs", "pTs", "accuracys", "f1s_not_weighted", "precisions_not_weighted", "recalls_not_weighted"],
+    "metrics_pnl":["gross_yield_per_trade_bps", "net_yield_per_trade_bps", "gross_yield_per_day_pct", "net_yield_per_day_pct", "nb_trades_by_day", "average_period_position", "gross_sortino_ratio_adjusted", "net_sortino_ratio_adjusted","gross_win_loss_ratio", "net_win_loss_ratio","gross_maximum_drawdown", "net_maximum_drawdown", "gross_value_at_risk", "net_value_at_risk", "gross_expected_shortfall", "net_expected_shortfall"],
+    "metrics_pnl_labels":["Gross Yield per Trade (bps)", "Net Yield per Trade (bps)", "Gross Yield per Day (pct)", "Net Yield per Day (pct)", "Number of Trades per Day", "Avg Time per Position (sec)", "Gross Sortino Ratio (Ann.)", "Net Sortino Ratio (Ann.)", "Gross Win/Loss Ratio", "Net Win/Loss Ratio", "Gross Max Drawdown", "Net Max Drawdown", "Gross VaR (5%)", "Net VaR (5%)", "Gross Expected Shortfall (5%)", "Net Expected Shortfall (5%)"],
+    "plot_colors": ["blue", "orange", "green", "red", "purple"],
+    "plot_symbolics":["o", "s", "D", "^", "x"],
+    "pAdv":1e-2,
+    "k":0.25,
+    "alpha":1,
+    "trading_fee":{
+        "maker":-0.2e-4,
+        "taker":2.1e-4
+    },
+    "risk_free_rate": 0.02
+} 

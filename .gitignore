@@ -13,7 +13,6 @@ __pycache__/
 *.sqlite
 
 # Ignore configuration or environment files if sensitive
-config.json
 config3.json
 
 # Ignore operating system files
