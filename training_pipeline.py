@@ -1,11 +1,8 @@
 # Core Libraries
 import os
-import sys
 import json
 import gc
 import pickle
-import random
-import sqlite3
 import numpy as np
 import pandas as pd
 from datetime import datetime
@@ -19,11 +16,10 @@ from sklearn.metrics import f1_score, precision_score, recall_score, matthews_co
 from tqdm import tqdm
 import torch
 from torch.utils.data import DataLoader, Dataset, TensorDataset
-from torch.cuda.amp import autocast, GradScaler
 from torch import nn
 import torch.optim as optim
 from torch.optim.lr_scheduler import StepLR
-from torchmetrics import Accuracy, F1Score
+from torchmetrics import F1Score
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, TQDMProgressBar
 
@@ -376,6 +372,8 @@ def run_training(config_path: str):
         config = json.load(f)
 
     # Hyperparameters and configurations
+    step_size = config.get("step_size", 3)
+    gamma = config.get("gamma", 0.8)
     batch_size = config.get("batch_size", 128)
     learning_rate = config.get("learning_rate", 2e-4)
     num_epochs = config.get("num_epochs", 10)
@@ -419,9 +417,9 @@ def run_training(config_path: str):
                 # Initialize model, optimizer, scheduler, loss function
                 model = get_model(model_name)
                 if model_name == 'binbtabl':
-                    model = model(120,40,T,5,3,1)
+                    model = model(120,40,T,5,3,1) # cf LOBFrame (Briola et al.)
                 elif model_name == 'binctabl':
-                    model = model(120,40,T,5,120,5,3,1)
+                    model = model(120,40,T,5,120,5,3,1) # cf LOBFrame (Briola et al.)
                 else:
                     model = model()
                 model = model.to('cuda')
@@ -429,8 +427,8 @@ def run_training(config_path: str):
                 optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
                 scheduler = StepLR(
                     optimizer,
-                    step_size=config.get("step_size", 3),
-                    gamma=config.get("gamma", 0.8)
+                    step_size = step_size,
+                    gamma = gamma
                 )
                 loss_fn = nn.CrossEntropyLoss()
 
@@ -842,8 +840,6 @@ def run_pipeline_plot(config_file, aggregated_data):
     root_path = os.path.join(os.getcwd(), config["path_save_dataset"])
     symbols = config["symbols"]
     models = config["models"]
-    type_library = config["type_library"]
-    seed = config["seed"]
 
     probability_thresholds = config['probability_thresholds']
     metrics_threshold = config['metrics']

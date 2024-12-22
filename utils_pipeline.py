@@ -1,31 +1,18 @@
-import os
-import pandas as pd
-import tensorflow as tf
-import re
-import torch
-from torch.utils.data import DataLoader, Dataset, TensorDataset, Subset
-from torch import nn
-import numpy as np
-import random
-import gc
-
 import pandas as pd
 import os
-import time
 import numpy as np
-from datetime import datetime
 from matplotlib import pyplot as plt
 import seaborn as sns
-from scipy import stats
-import zipfile
+import re
 import pickle
-import sys
+import random
+import gc
 from typing import Optional
-
 from tqdm import tqdm
+
+import tensorflow as tf
 import torch
-from torch.utils.data import DataLoader, Dataset, TensorDataset
-from torch.cuda.amp import autocast, GradScaler
+from torch.utils.data import DataLoader, Dataset, TensorDataset, Subset
 from torch import nn
 from torchmetrics import Accuracy, F1Score
 import pytorch_lightning as pl
@@ -364,7 +351,7 @@ def get_pickle_path(model_name, data_path, type_library, seed, device, T):
   results_pickle_file = f"test_results_{type_library}_seed={seed}_{model_ref}.pkl"
   pickle_test_path = os.path.join(path_csv_training, results_pickle_file)
 
-  loss_fn = nn.CrossEntropyLoss()
+  loss_fn = nn.CrossEntropyLoss() # cf LOBFrame (Briola et al.)
 
   model_name = model_name[:-1] if ('bin' in model_name) & (model_name[-1]=='e') else model_name
   model, last_trained_epoch, last_best_val_loss = get_trained_model(model_name, checkpoint_path, T, device)
@@ -413,7 +400,7 @@ class Position:
     def exit_short_open_long(self):
         self.short_inventory = 0
         self.long_inventory += self.amount
-        self.trading_history.append({'Type': 'Close Short \ Open Long', 'Position':self.long_inventory - self.short_inventory})
+        self.trading_history.append({r'Type': 'Close Short \ Open Long', 'Position':self.long_inventory - self.short_inventory})
         
     def maintain_long(self):
         self.trading_history.append({'Type': 'Maintain Long', 'Position':self.long_inventory - self.short_inventory})
