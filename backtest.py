@@ -17,10 +17,9 @@ import random
 import sqlite3
 from tqdm import tqdm
 from collections import defaultdict
-import lz4
 import torchmetrics
 import pytorch_lightning
-from utils2 import *
+from utils_pipeline import *
 
 
 
@@ -1412,8 +1411,8 @@ def run_backtest(config_path):
     models = adapt_models_list(config["models"])
     exchanges = config["exchanges"]
     path_sqlite = config["path_sqlite"]
-    path_output_dir = config["path_save_results"]
-    root_path = config["path_save_dataset"]
+    path_output_dir = os.path.join(os.getcwd(), config["path_save_results"])
+    root_path = os.path.join(os.getcwd(), config["path_save_dataset"])
     set_type = 'test'
     spread_cost_capture_dict = config["trader_types"]
     trader_types = list(spread_cost_capture_dict.keys())
@@ -1539,7 +1538,7 @@ def aggregate_backtest_data(config_path):
         config = json.load(f)
 
     # Extract configuration parameters
-    root_path = config["path_save_dataset"]
+    root_path = os.path.join(os.getcwd(), config["path_save_dataset"])
     path_output_dir = config["path_save_results"]
     symbols = config["symbols"]
     models = adapt_models_list(config["models"])

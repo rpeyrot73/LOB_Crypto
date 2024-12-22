@@ -5,13 +5,12 @@ import gc
 import pickle
 import random
 import sqlite3
-import lz4
 import numpy as np
 import pandas as pd
 from datetime import datetime
 from typing import Dict, List, Tuple
 
-from utils2 import *
+from utils_pipeline import *
 
 
 def get_dates(table, symbols, exchanges, start_date, end_date, path_sqlite, min_rows=5000):
@@ -530,6 +529,8 @@ def run_data_pipeline(config_path: str):
     with open(config_path, "r") as f:
         config = json.load(f)
 
+    data_path_save =  os.path.join(os.getcwd(), config["path_save_dataset"])
+
     # Loop through symbols, T values, and prediction horizons
     for symbol in config["symbols"]:
         for T, pred_horizon in list(zip(config["Ts"], config["pred_horizons"])):
@@ -558,7 +559,7 @@ def run_data_pipeline(config_path: str):
 
             # Prepare save path for each combination
             folder_name = f"{symbol}_data_{dic_dates['train_dates'][0]}_{dic_dates['test_dates'][-1]}_T{T}_H{pred_horizon}"
-            full_path_save = os.path.join(config["path_save_dataset"], folder_name)
+            full_path_save = os.path.join(data_path_save, folder_name)
             os.makedirs(full_path_save, exist_ok=True)
 
             # Process data for the current symbol, T, and pred_horizon

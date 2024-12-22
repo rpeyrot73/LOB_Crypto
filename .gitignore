@@ -1,0 +1,47 @@
+# Ignore credentials
+crypto_lake_aws_credentials.txt
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore SQLite database files
+*.sqlite
+
+# Ignore configuration or environment files if sensitive
+config.json
+config3.json
+
+# Ignore operating system files
+.DS_Store
+Thumbs.db
+
+# Ignore virtual environment directories
+venv/
+env/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Ignore compressed files
+*.zip
+*.tar.gz
+*.rar
+
+# Ignore compiled code or binaries
+*.so
+*.dll
+*.exe
+
+# Ignore project-specific temporary files
+data_preprocessed/
+plots/
+results/

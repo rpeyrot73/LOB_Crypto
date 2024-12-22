@@ -6,7 +6,6 @@ import gc
 import pickle
 import random
 import sqlite3
-import lz4
 import numpy as np
 import pandas as pd
 from datetime import datetime
@@ -28,7 +27,7 @@ from torchmetrics import Accuracy, F1Score
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, TQDMProgressBar
 
-from utils2 import *
+from utils_pipeline import *
 
 
 
@@ -386,6 +385,7 @@ def run_training(config_path: str):
     symbols = config["symbols"]
     models = config["models"]
     type_library = config.get("type_library", "pt")
+    data_preprocessed_path = os.path.join(os.getcwd(), config["path_save_dataset"])
 
     # Set random seed for reproducibility
     torch.manual_seed(seed)
@@ -400,7 +400,7 @@ def run_training(config_path: str):
 
             # Find the dataset folder
             folder_name_list = [
-                c for c in os.listdir(config["path_save_dataset"])
+                c for c in os.listdir(data_preprocessed_path)
                 if (f'_T{T}_H{H}' in c) and (symbol in c)
             ]
             if len(folder_name_list) != 1:
@@ -409,7 +409,7 @@ def run_training(config_path: str):
                 )
                 continue
 
-            full_path_save = os.path.join(config["path_save_dataset"], folder_name_list[0])
+            full_path_save = os.path.join(data_preprocessed_path, folder_name_list[0])
 
 
 
@@ -536,7 +536,7 @@ def run_pipeline_load_data(config_file):
         config = json.load(f)
 
     # Extract parameters from config
-    root_path = config["path_save_dataset"]
+    root_path = os.path.join(os.getcwd(), config["path_save_dataset"])
     symbols = config["symbols"]
     models = config["models"]
     type_library = config["type_library"]
@@ -839,7 +839,7 @@ def run_pipeline_plot(config_file, aggregated_data):
         config = json.load(f)
 
     # Extract parameters from configuration
-    root_path = config["path_save_dataset"]
+    root_path = os.path.join(os.getcwd(), config["path_save_dataset"])
     symbols = config["symbols"]
     models = config["models"]
     type_library = config["type_library"]
