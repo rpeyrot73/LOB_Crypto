@@ -1018,9 +1018,9 @@ def get_dataloader_groups(len_dic, MIN_OBS, MAX_OBS):
     if current_obs_sum + obs_count > MAX_OBS:
         # If adding this file exceeds MAX_OBS, finalize the current group
         if current_obs_sum >= MIN_OBS:  # Only finalize if the current group meets the MIN_OBS threshold
-            groups.append(current_group)  # Append the current group to the list of groups
-            current_group = []  # Reset the group
-            current_obs_sum = 0  # Reset the observation sum
+            groups.append(current_group)  
+            current_group = [] 
+            current_obs_sum = 0 
         
     # Now add the file to the current group
     current_group.append(file)
