@@ -1,7 +1,7 @@
 # LOB_Crypto
 
 LOB_Crypto is a Python-based framework designed for high-frequency financial data processing, model training, and backtesting in cryptocurrency markets. It uses Limit Order Book (LOB) data to predict mid-price movements and optimize trading strategies. 
-This project is based on the research conducted as part of the study: [*Deep Limit Order Book Forecasting Applied to Crypto Currencies*](research_papers/my_research_paper.pdf) and draws significant inspiration from [**LOBFrame**](https://github.com/FinancialComputingUCL/LOBFrame) (Briola et al.), incorporating ideas and methodologies from their research [*Deep Limit Order Book Forecasting*](https://arxiv.org/abs/2403.09267).
+This project is based on the research conducted as part of the study: [*Deep Limit Order Book Forecasting Applied to Crypto Currencies*](research_papers/Deep_Limit_Order_Book_Forecasting_Applied_to_Crypto_Currencies.pdf) and draws significant inspiration from [**LOBFrame**](https://github.com/FinancialComputingUCL/LOBFrame) (Briola et al.), incorporating ideas and methodologies from their research [*Deep Limit Order Book Forecasting*](https://arxiv.org/abs/2403.09267).
 This project integrates advanced deep learning techniques such as CNNs, LSTMs, and Transformers to build and evaluate models for historical data.
 
 ---
@@ -120,7 +120,7 @@ This project requires high-frequency financial data fetched using the Crypto Lak
 
 If you use this project or build upon it, please cite the associated research paper:
 
-[*Deep Limit Order Book Forecasting Applied to Crypto Currencies*](research_papers/my_research_paper.pdf)
+[*Deep Limit Order Book Forecasting Applied to Crypto Currencies*](research_papers/Deep_Limit_Order_Book_Forecasting_Applied_to_Crypto_Currencies.pdf)
 
 
 ```bibtex
